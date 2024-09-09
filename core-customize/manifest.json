@@ -1,6 +1,5 @@
 {
-  "commerceSuiteVersion": "2211",
-  "keepPriorPatchCount": "1",
+  "commerceSuiteVersion": "2211.27",
   "enableImageProcessingService": true,
   "extensions": [
     "hisensefulfilmentprocess",
