@@ -1,115 +1,306 @@
 {
-  "commerceSuiteVersion": "2211.27",
-  "enableImageProcessingService": true,
-  "extensions": [
-    "hisensefulfilmentprocess",
-    "hisensebackoffice",
-    "hisensecore",
-    "hisensefacades",
-    "hisensestorefront",
-    "hisenseinitialdata"
-  ],
-  "useConfig": {
-    "properties": [
-      {
-        "location": "config/dev/local.properties",
-        "persona": "development"
-      },
-      {
-        "location": "config/stage/local.properties",
-        "persona": "staging"
-      },
-      {
-        "location": "config/prod/local.properties",
-        "persona": "production"
-      }
+    "commerceSuiteVersion": "2211.27",
+    "enableImageProcessingService": true,
+    "extensions": [
+        "hisensefulfilmentprocess",
+        "hisensebackoffice",
+        "hisensecore",
+        "hisensefacades",
+        "hisensestorefront",
+        "hisenseinitialdata"
     ],
-    "extensions": {
-      "location": "config/local/localextensions.xml"
-    }
-  },
-  "storefrontendAddons": [
-    {
-      "addon": "customerticketingaddon",
-      "storefront": "mycustomstorefront",
-      "template": "yacceleratorstorefront"
+    "useConfig": {
+        "properties": [
+            {
+                "location": "config/dev/local.properties",
+                "persona": "development"
+            },
+            {
+                "location": "config/stage/local.properties",
+                "persona": "staging"
+            },
+            {
+                "location": "config/prod/local.properties",
+                "persona": "production"
+            }
+        ],
+        "extensions": {
+            "location": "config/local/localextensions.xml"
+        }
     },
-    {
-      "addon": "smarteditaddon",
-      "storefront": "mycustomstorefront",
-      "template": "yacceleratorstorefront"
-    }
-  ],
-
-  "aspects": [
-    {
-      "name": "backoffice",
-      "webapps": [
+    "properties": [
         {
-          "name": "backoffice",
-          "contextPath": "/backoffice"
-        }
-      ]
-    },
-    {
-      "name": "backgroundProcessing",
-      "webapps": [
-        {
-          "name": "hac",
-          "contextPath": "/hac"
+            "key": "lang.packs",
+            "value": "en"
         },
         {
-          "name": "mediaweb",
-          "contextPath": "/medias"
-        }
-      ]
-    },
-    {
-      "name": "accstorefront",
-      "properties": [
-        {
-          "key": "storefrontContextRoot",
-          "value": ""
-        }
-      ],
-      "webapps": [
-        {
-          "name": "hisensestorefront",
-          "contextPath": ""
+            "key": "endpoint.hac.platform.init.disabled",
+            "value": "false"
         },
         {
-          "name": "mediaweb",
-          "contextPath": "/medias"
-        }
-      ]
-    },
-
-    {
-      "name": "api",
-      "properties": [
-        {
-          "key": "xss.filter.header.X-Frame-Options",
-          "value": ""
-        }
-      ],
-      "webapps": [
-        {
-          "name": "ycommercewebservices",
-          "contextPath": "/rest"
+            "key": "endpoint.hac.platform.update.disabled",
+            "value": "false"
         },
         {
-          "name": "oauth2",
-          "contextPath": "/authorizationserver"
+            "key": "googleApiKey",
+            "value": ""
         },
         {
-          "name": "cmswebservices",
-          "contextPath": "/cmswebservices"
+            "key": "occ.rewrite.overlapping.paths.enabled",
+            "value": "true"
         },
         {
-          "name": "permissionswebservices",
-          "contextPath": "/permissionswebservices"
+            "key": "apiregistryservices.events.exporting",
+            "value": "true"
+        },
+        {
+            "key": "backoffice.solr.search.index.autoinit",
+            "value": "true"
+        },
+        {
+            "key": "outboundservices.monitoring.enabled",
+            "value": "true"
+        },
+        {
+            "key": "session.serialization.check.response.error",
+            "value": "true"
+        },
+        {
+            "key": "website.hisense-spa.http",
+            "value": "${ccv2.services.jsapps.url.0}"
+        },
+        {
+            "key": "website.hisense-spa.https",
+            "value": "${ccv2.services.jsapps.url.0}"
+        },
+        {
+            "key": "acceleratorservices.payment.url.strict.enabled",
+            "value": "false"
         }
-      ]
-    }
-  ]
+    ],
+    "storefrontendAddons": [
+        {
+            "addon": "customerticketingaddon",
+            "storefront": "mycustomstorefront",
+            "template": "yacceleratorstorefront"
+        },
+        {
+            "addon": "smarteditaddon",
+            "storefront": "mycustomstorefront",
+            "template": "yacceleratorstorefront"
+        }
+    ],
+    "aspects": [
+        {
+            "name": "backoffice",
+            "properties": [
+                {
+                    "key": "backoffice.solr.search.index.autoinit",
+                    "value": "true"
+                },
+                {
+                    "key": "storefrontContextRoot",
+                    "value": ""
+                }
+            ],
+            "webapps": [
+                {
+                    "name": "backoffice",
+                    "contextPath": "/backoffice"
+                }
+            ]
+        },
+        {
+            "name": "backgroundProcessing",
+            "webapps": [
+                {
+                    "name": "hac",
+                    "contextPath": "/hac"
+                },
+                {
+                    "name": "mediaweb",
+                    "contextPath": "/medias"
+                }
+            ]
+        },
+        {
+            "name": "accstorefront",
+            "properties": [
+                {
+                    "key": "storefrontContextRoot",
+                    "value": ""
+                }
+            ],
+            "webapps": [
+                {
+                    "name": "hisensestorefront",
+                    "contextPath": ""
+                },
+                {
+                    "name": "mediaweb",
+                    "contextPath": "/medias"
+                }
+            ]
+        },
+        {
+            "name": "api",
+            "properties": [
+                {
+                    "key": "storefrontContextRoot",
+                    "value": ""
+                },
+                {
+                    "key": "xss.filter.header.X-Frame-Options",
+                    "value": ""
+                },
+                {
+                    "key": "sop.post.url",
+                    "value": "${ccv2.services.api.url.0}/acceleratorservices/sop-mock/process"
+                },
+                {
+                    "key": "corsfilter.default.allowedOrigins",
+                    "value": "*"
+                },
+                {
+                    "key": "corsfilter.default.allowedMethod",
+                    "value": "GET"
+                },
+                {
+                    "key": "corsfilter.acceleratorservices.allowedOrigins",
+                    "value": "*"
+                },
+                {
+                    "key": "corsfilter.acceleratorservices.allowedHeaders",
+                    "value": "origin content-type accept authorization"
+                },
+                {
+                    "key": "corsfilter.acceleratorservices.allowedMethods",
+                    "value": "GET HEAD OPTIONS PATCH PUT POST DELETE"
+                },
+                {
+                    "key": "corsfilter.acceleratorservices.exposedHeaders",
+                    "value": "x-anonymous-consents"
+                },
+                {
+                    "key": "corsfilter.modeltacceleratorservices.allowedOrigins",
+                    "value": "*"
+                },
+                {
+                    "key": "corsfilter.modeltacceleratorservices.allowedHeaders",
+                    "value": "origin content-type accept authorization"
+                },
+                {
+                    "key": "corsfilter.modeltacceleratorservices.allowedMethods",
+                    "value": "GET HEAD OPTIONS PATCH PUT POST DELETE"
+                },
+                {
+                    "key": "corsfilter.modeltacceleratorservices.exposedHeaders",
+                    "value": "x-anonymous-consents"
+                },
+                {
+                    "key": "corsfilter.assistedservicewebservices.allowedOrigins",
+                    "value": "*"
+                },
+                {
+                    "key": "corsfilter.assistedservicewebservices.allowedHeaders",
+                    "value": "origin content-type accept authorization cache-control x-anonymous-consents x-profile-tag-debug x-consent-reference"
+                },
+                {
+                    "key": "corsfilter.assistedservicewebservices.allowedMethods",
+                    "value": "GET HEAD OPTIONS PATCH PUT POST DELETE"
+                },
+                {
+                    "key": "corsfilter.assistedservicewebservices.exposedHeaders",
+                    "value": "x-anonymous-consents"
+                },
+                {
+                    "key": "corsfilter.commercewebservices.allowedOrigins",
+                    "value": "*"
+                },
+                {
+                    "key": "corsfilter.commercewebservices.allowedHeaders",
+                    "value": "origin content-type accept authorization cache-control x-anonymous-consents x-profile-tag-debug x-consent-reference if-none-match occ-personalization-id occ-personalization-time"
+                },
+                {
+                    "key": "corsfilter.commercewebservices.allowedMethods",
+                    "value": "GET HEAD OPTIONS PATCH PUT POST DELETE"
+                },
+                {
+                    "key": "corsfilter.commercewebservices.exposedHeaders",
+                    "value": "x-anonymous-consents occ-personalization-id occ-personalization-time"
+                },
+                {
+                    "key": "corsfilter.permissionswebservices.allowedOrigins",
+                    "value": "*"
+                },
+                {
+                    "key": "corsfilter.permissionswebservices.allowedHeaders",
+                    "value": "origin content-type accept authorization"
+                },
+                {
+                    "key": "corsfilter.permissionswebservices.allowedMethods",
+                    "value": "GET"
+                },
+                {
+                    "key": "corsfilter.personalizationwebservices.allowedOrigins",
+                    "value": "*"
+                },
+                {
+                    "key": "mockup.payment.label.billTo.region",
+                    "value": "billTo_state"
+                },
+                {
+                    "key": "mockup.payment.label.billTo.phoneNumber",
+                    "value": "billTo_phoneNumber"
+                }
+            ],
+            "webapps": [
+                {
+                    "name": "hac",
+                    "contextPath": "/hac"
+                },
+                {
+                    "name": "mediaweb",
+                    "contextPath": "/medias"
+                },
+                {
+                    "name": "adaptivesearchwebservices",
+                    "contextPath": "/adaptivesearchwebservices"
+                },
+                {
+                    "name": "backoffice",
+                    "contextPath": "/backoffice"
+                },
+                {
+                    "name": "smartedit",
+                    "contextPath": "/smartedit"
+                },
+                {
+                    "name": "smarteditwebservices",
+                    "contextPath": "/smarteditwebservices"
+                },
+                {
+                    "name": "cmssmartedit",
+                    "contextPath": "/cmssmartedit"
+                },
+                {
+                    "name": "cmssmarteditwebservices",
+                    "contextPath": "/cmssmarteditwebservices"
+                },
+                {
+                    "name": "cmswebservices",
+                    "contextPath": "/cmswebservices"
+                },
+                {
+                    "name": "previewwebservices",
+                    "contextPath": "/previewwebservices"
+                },
+                {
+                    "name": "oauth2",
+                    "contextPath": "/authorizationserver"
+                }
+                
+            ]
+        }
+    ]
 }
