@@ -9,7 +9,8 @@
       },
       "crs": {
         "webroot": "dist/hisense-jsstorefront/browser/"
-      }
+      },
+      "enabledRepositories": ["spartacus-6"]
     }
   ],
   "nodeVersion": "20"
