@@ -7,7 +7,7 @@
         "enabled": false,
         "path": "dist/hisense-jsstorefront/server/server.mjs"
       },
-      "crs": {
+      "csr": {
         "webroot": "dist/hisense-jsstorefront/browser/"
       },
       "enabledRepositories": ["spartacus-6"]
