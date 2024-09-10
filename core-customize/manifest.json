@@ -124,7 +124,7 @@
       ]
     },
     {
-      "name": "hisensestorefront",
+      "name": "accstorefront",
       "properties": [
         {
           "key": "storefrontContextRoot",
