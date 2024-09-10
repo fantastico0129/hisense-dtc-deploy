@@ -8,7 +8,7 @@
         "path": "dist/hisense-jsstorefront/server/server.mjs"
       },
       "crs": {
-        "webrrot": "dist/hisense-jsstorefront/browser"
+        "webroot": "dist/hisense-jsstorefront/browser"
       }
     }
   ],
