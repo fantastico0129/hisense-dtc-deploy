@@ -3,10 +3,10 @@
     {
       "name": "hisense-jsstorefront",
       "path": "hisense-jsstorefront",
-      // "ssr": {
-      //   "enabled": false,
-      //   "path": "dist/hisense-jsstorefront/server/server.mjs"
-      // },
+      "ssr": {
+        "enabled": false,
+        "path": "dist/hisense-jsstorefront/server/server.mjs"
+      },
       "crs": {
         "webrrot": "dist/hisense-jsstorefront/browser"
       }
