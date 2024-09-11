@@ -124,6 +124,10 @@
         {
           "name": "smartedit",
           "contextPath": "/smartedit"
+        },
+        {
+          "name": "smarteditwebservices",
+          "contextPath": "/smarteditwebservices"
         }
       ]
     },
