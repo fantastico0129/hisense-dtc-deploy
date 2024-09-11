@@ -81,12 +81,12 @@
   "storefrontendAddons": [
     {
       "addon": "customerticketingaddon",
-      "storefront": "mycustomstorefront",
+      "storefront": "hisensestorefront",
       "template": "yacceleratorstorefront"
     },
     {
       "addon": "smarteditaddon",
-      "storefront": "mycustomstorefront",
+      "storefront": "hisensestorefront",
       "template": "yacceleratorstorefront"
     }
   ],
@@ -120,6 +120,10 @@
         {
           "name": "mediaweb",
           "contextPath": "/medias"
+        },
+        {
+          "name": "smartedit",
+          "contextPath": "/smartedit"
         }
       ]
     },
