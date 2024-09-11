@@ -128,6 +128,18 @@
         {
           "name": "smarteditwebservices",
           "contextPath": "/smarteditwebservices"
+        },
+        {
+          "name": "cmssmartedit",
+          "contextPath": "/cmssmartedit"
+        },
+        {
+          "name": "cmssmarteditwebservices",
+          "contextPath": "/cmssmarteditwebservices"
+        },
+        {
+          "name": "oauth2",
+          "contextPath": "/authorizationserver"
         }
       ]
     },
