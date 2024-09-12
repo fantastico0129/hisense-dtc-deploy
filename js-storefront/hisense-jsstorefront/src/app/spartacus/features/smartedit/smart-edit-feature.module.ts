@@ -18,7 +18,7 @@ import { SMART_EDIT_FEATURE, SmartEditConfig, SmartEditRootModule } from "@spart
   provideConfig(<SmartEditConfig>{
     smartEdit: {
       storefrontPreviewRoute: 'cx-preview',
-      allowOrigin: 'jsapps.cdrwhdl6-hisenseho1-d1-public.model-t.cc.commerce.ondemand.com,api.cdrwhdl6-hisenseho1-d1-public.model-t.cc.commerce.ondemand.com',
+      allowOrigin: 'jsapps.cdrwhdl6-hisenseho1-d1-public.model-t.cc.commerce.ondemand.com:80,api.cdrwhdl6-hisenseho1-d1-public.model-t.cc.commerce.ondemand.com',
     },
   })
   ]
