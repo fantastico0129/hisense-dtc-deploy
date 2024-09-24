@@ -106,6 +106,17 @@
 		<extension name="integrationmonitoringbackoffice"/>
 		<extension name="outboundsyncbackoffice"/>
 		<extension name="swaggerintegration" />
+		<extension name="notificationaddon" />
+		<extension name="notificationfacades" />
+		<extension name="notificationocc" />
+		<extension name="notificationservices" />
+		<extension name="customerinterestsaddon" />
+		<extension name="customerinterestsfacades" />
+		<extension name="customerinterestsocc" />
+		<extension name="customerinterestsservices" />
+		<extension name="stocknotificationaddon" />
+		<extension name="stocknotificationfacades" />
+		<extension name="stocknotificationservices" />
 
 	</extensions>
 </hybrisconfig>
