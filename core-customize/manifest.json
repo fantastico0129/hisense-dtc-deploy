@@ -89,7 +89,22 @@
       "addon": "smarteditaddon",
       "storefront": "hisensestorefront",
       "template": "yacceleratorstorefront"
-    }
+    },
+    {
+      "addon": "notificationaddon",
+      "storefront": "hisensestorefront",
+      "template": "yacceleratorstorefront"
+    },
+    {
+      "addon": "stocknotificationaddon",
+      "storefront": "hisensestorefront",
+      "template": "yacceleratorstorefront"
+    },
+    {
+    "addon": "customerinterestsaddon",
+    "storefront": "hisensestorefront",
+    "template": "yacceleratorstorefront"
+   }
   ],
   "aspects": [
     {
