@@ -8,7 +8,18 @@
     "hisensefacades",
     "hisensestorefront",
     "hisenseinitialdata",
-    "hisenseocc"
+    "hisenseocc",
+    "notificationaddon",
+    "notificationfacades",
+    "notificationocc",
+    "notificationservices",
+    "customerinterestsaddon",
+    "customerinterestsfacades",
+    "customerinterestsocc",
+    "customerinterestsservices",
+    "stocknotificationaddon",
+    "stocknotificationfacades",
+    "stocknotificationservices"
   ],
   "useConfig": {
     "properties": [
