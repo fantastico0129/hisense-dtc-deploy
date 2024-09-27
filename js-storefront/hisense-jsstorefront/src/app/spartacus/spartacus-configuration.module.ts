@@ -10,8 +10,9 @@ import { defaultCmsContentProviders, layoutConfig, mediaConfig } from "@spartacu
   providers: [provideConfig(layoutConfig), provideConfig(mediaConfig), ...defaultCmsContentProviders, provideConfig(<OccConfig>{
     backend: {
       occ: {
-        baseUrl: 'https://api.cdrwhdl6-hisenseho2-d1-public.model-t.cc.commerce.ondemand.com',
+        // baseUrl: 'https://api.cdrwhdl6-hisenseho2-d1-public.model-t.cc.commerce.ondemand.com',
         // baseUrl: 'https://localhost:9002',
+        baseUrl: 'https://devapi.hisense.wskam.com',
       }
     },
   }), provideConfig(<SiteContextConfig>{
