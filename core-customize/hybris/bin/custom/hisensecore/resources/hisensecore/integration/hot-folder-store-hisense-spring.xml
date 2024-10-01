@@ -19,66 +19,118 @@
 
 	<context:annotation-config/>
 
-	<bean id="baseDirectoryApparel" class="java.lang.String">
-		<constructor-arg value="#{baseDirectory}/${tenantId}/apparel" />
+	<bean id="baseDirectoryHisense" class="java.lang.String">
+		<constructor-arg value="#{baseDirectory}/${tenantId}/hisense" />
 	</bean>
 	<!-- 1) Scan for files -->
-	<file:inbound-channel-adapter id="batchFilesApparel" directory="#{baseDirectoryApparel}"
+	<file:inbound-channel-adapter id="batchFilesHisense" directory="#{baseDirectoryHisense}"
 								  filename-regex="^(.*)-(\d+)\.csv" comparator="fileOrderComparator">
 		<int:poller fixed-rate="1000" />
 	</file:inbound-channel-adapter>
 
+	<bean id="fileOrderComparator" class="de.hybris.platform.acceleratorservices.dataimport.batch.FileOrderComparator">
+		<property name="prefixPriority">
+			<map>
+				<!-- default priority is 0 -->
+				<entry key="base_product" value="10" />
+				<entry key="stock" value="8" />
+				<entry key="price" value="6" />
+				<entry key="media" value="4" />
+				<entry key="variant" value="1" />
+			</map>
+		</property>
+	</bean>
+
 	<!-- 2) move the file to processing and create header -->
-	<file:outbound-gateway request-channel="batchFilesApparel" reply-channel="batchFilesApparelProc"
-						   directory="#{baseDirectoryApparel}/processing" delete-source-files="true" />
-	<int:service-activator input-channel="batchFilesApparelProc" output-channel="batchFilesHeaderInit" ref="apparelHeaderSetupTask"
+	<file:outbound-gateway request-channel="batchFilesHisense" reply-channel="batchFilesHisenseProc"
+						   directory="#{baseDirectoryHisense}/processing" delete-source-files="true" />
+	<int:service-activator input-channel="batchFilesHisenseProc" output-channel="batchFilesHeaderInit" ref="hisenseHeaderSetupTask"
 						   method="execute" />
-	<bean id="apparelHeaderSetupTask" class="de.hybris.platform.acceleratorservices.dataimport.batch.task.HeaderSetupTask">
-		<property name="catalog" value="apparelProductCatalog" />
+	<bean id="hisenseHeaderSetupTask" class="de.hybris.platform.acceleratorservices.dataimport.batch.task.HeaderSetupTask">
+		<property name="catalog" value="hisenseProductCatalog" />
 		<property name="net" value="false" />
-		<property name="storeBaseDirectory" ref="baseDirectoryApparel" />
+		<property name="storeBaseDirectory" ref="baseDirectoryHisense" />
 	</bean>
 
 	<!-- Transformer converters mappings -->
-	<bean id="batchApparelProductConverterMapping"
+	<alias name="batchHisenseProductConverterMapping" alias="batchProductConverterMapping"/>
+	<bean id="batchHisenseProductConverterMapping"
 		  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
 		  p:mapping="base_product"
-		  p:converter-ref="batchApparelProductConverter"/>
+		  p:converter-ref="batchHisenseProductConverter"/>
 
-	<bean id="batchSizeVariantConverterMapping"
+	<alias name="batchHisenseSizeVariantConverterMapping" alias="batchSizeVariantConverterMapping"/>
+	<bean id="batchHisenseSizeVariantConverterMapping"
 		  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
 		  p:mapping="variant"
-		  p:converter-ref="batchSizeVariantConverter"/>
+		  p:converter-ref="batchHisenseSizeVariantConverter"/>
 
-	<bean id="batchStyleVariantConverterMapping"
+	<alias name="batchHisenseTaxConverterMapping" alias="batchTaxConverterMapping"/>
+	<bean id="batchHisenseTaxConverterMapping"
 		  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
-		  p:mapping="variant"
-		  p:converter-ref="batchStyleVariantConverter"/>
+		  p:mapping="tax"
+		  p:converter-ref="batchHisenseTaxConverter"/>
 
-	<!-- Apparel specific converters -->
-	<bean id="batchApparelProductConverter" parent="abstractDefaultImpexConverter">
+	<alias name="batchHisenseExternalTaxConverterMapping" alias="batchExternalTaxConverterMapping"/>
+	<bean id="batchHisenseExternalTaxConverterMapping"
+		  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+		  p:mapping="external_tax"
+		  p:converter-ref="batchHisenseExternalTaxConverter"/>
+
+	<alias name="batchHisensePriceConverterMapping" alias="batchPriceConverterMapping"/>
+	<bean id="batchHisensePriceConverterMapping"
+		  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+		  p:mapping="price"
+		  p:converter-ref="batchHisensePriceConverter"/>
+
+	<alias name="batchHisenseStockConverterMapping" alias="batchStockConverterMapping"/>
+	<bean id="batchHisenseStockConverterMapping"
+		  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+		  p:mapping="stock"
+		  p:converter-ref="batchHisenseStockConverter"/>
+
+	<alias name="batchHisenseStockIncrementalConverterMapping" alias="batchStockIncrementalConverterMapping"/>
+	<bean id="batchHisenseStockIncrementalConverterMapping"
+		  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+		  p:mapping="inc-stock"
+		  p:converter-ref="batchStockHisenseIncrementalConverter"/>
+
+	<alias name="batchHisenseMerchandiseConverterMapping" alias="batchMerchandiseConverterMapping"/>
+	<bean id="batchHisenseMerchandiseConverterMapping"
+		  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+		  p:mapping="merchandise"
+		  p:converter-ref="batchHisenseMerchandiseConverter"/>
+
+	<alias name="batchHisenseCustomerConverterMapping" alias="batchCustomerConverterMapping"/>
+	<bean id="batchHisenseCustomerConverterMapping"
+		  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+		  p:mapping="customer"
+		  p:converter-ref="batchHisenseCustomerConverter"/>
+
+	<!-- Hisense specific converters -->
+	<bean id="batchHisenseProductConverter" parent="abstractDefaultImpexConverter">
 		<property name="header">
 			<value>#{defaultImpexProductHeader}
-				# Insert Apparel Products
-				INSERT_UPDATE ApparelProduct;code[unique=true];varianttype(code);name[lang=$lang];description[lang=$lang];ean;manufacturerName;manufacturerAID;unit(code)[default=pieces];$approved;Europe1PriceFactory_PTG(code)[default=eu-vat-full];sequenceId[translator=de.hybris.platform.acceleratorservices.dataimport.batch.converter.SequenceIdTranslator];$catalogVersion
+				# Insert Hisense Products
+				INSERT_UPDATE Product;code[unique=true];varianttype(code);name[lang=$lang];description[lang=$lang];ean;manufacturerName;manufacturerAID;unit(code)[default=pieces];approvalStatus(code)[default='approved'];Europe1PriceFactory_PTG(code)[default=au-sales-tax-full];sequenceId[translator=de.hybris.platform.acceleratorservices.dataimport.batch.converter.SequenceIdTranslator];$catalogVersion
 			</value>
 		</property>
 		<property name="impexRow">
 			<value>;{+0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{S}</value>
 		</property>
-		<property name="rowFilter">
-			<bean class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexRowFilter">
-				<property name="expression" value="row[1]"/>
-			</bean>
-		</property>
-		<property name="type" value="ApparelProduct"/>
+<!--		<property name="rowFilter">-->
+<!--			<bean class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexRowFilter">-->
+<!--				<property name="expression" value="row[1]"/>-->
+<!--			</bean>-->
+<!--		</property>-->
+		<property name="type" value="Product"/>
 	</bean>
-	<bean id="batchSizeVariantConverter" parent="abstractDefaultImpexConverter">
+	<bean id="batchHisenseSizeVariantConverter" parent="abstractDefaultImpexConverter">
 		<property name="header">
 			<value>#{defaultImpexProductHeader}
 				$baseProduct=baseProduct(code,$catalogVersion)
 				# Insert size variant specific data
-				INSERT_UPDATE ApparelSizeVariantProduct;$baseProduct;code[unique=true];variantType(code);style[lang=$lang];size[lang=$lang];sequenceId[translator=de.hybris.platform.acceleratorservices.dataimport.batch.converter.SequenceIdTranslator];$catalogVersion;$approved
+				INSERT_UPDATE HisenseSizeVariantProduct;$baseProduct;code[unique=true];variantType(code);style[lang=$lang];size[lang=$lang];sequenceId[translator=de.hybris.platform.acceleratorservices.dataimport.batch.converter.SequenceIdTranslator];$catalogVersion;$approved
 			</value>
 		</property>
 		<property name="impexRow">
@@ -86,25 +138,126 @@
 		</property>
 		<property name="rowFilter">
 			<bean class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexRowFilter">
-				<property name="expression" value="row[2] == 'ApparelSizeVariantProduct' || row[4]"/>
+				<property name="expression" value="row[2] == 'HisenseSizeVariantProduct' || row[4]"/>
 			</bean>
 		</property>
 	</bean>
-	<bean id="batchStyleVariantConverter" parent="abstractDefaultImpexConverter">
+
+	<bean id="batchHisensePriceConverter" parent="abstractDefaultImpexConverter">
 		<property name="header">
-			<value>#{defaultImpexProductHeader}
-				$baseProduct=baseProduct(code,$catalogVersion)
-				# Insert style variant specific data
-				INSERT_UPDATE ApparelStyleVariantProduct;$baseProduct;code[unique=true];variantType(code);style[lang=$lang];sequenceId[translator=de.hybris.platform.acceleratorservices.dataimport.batch.converter.SequenceIdTranslator];$catalogVersion;$approved
+			<value># ImpEx for Importing Prices into $CATALOG$
+				$catalog=$CATALOG$
+				#% impex.setLocale(Locale.ENGLISH);
+				INSERT_UPDATE PriceRow;product(code,catalogversion(catalog(id),version))[unique=true];price[translator=de.hybris.platform.acceleratorservices.dataimport.batch.converter.PriceTranslator];currency(isocode)[unique=true];net[default=$NET$];unit(code)[default=pieces];unitFactor[default=1];minqtd[default=1];catalogversion(catalog(id),version);sequenceId[translator=de.hybris.platform.acceleratorservices.dataimport.batch.converter.SequenceIdTranslator]
 			</value>
 		</property>
 		<property name="impexRow">
-			<value>;{+0};{+1};{2};{3};{S}</value>
-		</property>
-		<property name="rowFilter">
-			<bean class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexRowFilter">
-				<property name="expression" value="row[2] == 'ApparelStyleVariantProduct' || (!row[2] &amp;&amp; !row[4])"/>
-			</bean>
+			<value>;{+0}:$catalog:Staged;{+1};{+2};{3};;;;$catalog:Staged;{S}</value>
 		</property>
 	</bean>
+	<bean id="batchHisenseTaxConverter" parent="abstractDefaultImpexConverter">
+		<property name="header">
+			<value>#{defaultImpexProductHeader}
+				# Insert tax
+				UPDATE Product;code[unique=true];Europe1PriceFactory_PTG(code)[default=au-sales-tax-full];sequenceId[translator=de.hybris.platform.acceleratorservices.dataimport.batch.converter.GreaterSequenceIdTranslator];$catalogVersion
+			</value>
+		</property>
+		<property name="impexRow">
+			<value>;{+0};{1};{S}</value>
+		</property>
+	</bean>
+	<bean id="batchHisenseExternalTaxConverter" parent="abstractDefaultImpexConverter">
+		<property name="header">
+			<value>#{defaultImpexProductHeader}
+				# Insert external tax
+				INSERT_UPDATE ProductTaxCode;productCode[unique=true];taxCode;taxArea[unique=true]
+			</value>
+		</property>
+		<property name="impexRow">
+			<value>;{+0};{+1};{+2}</value>
+		</property>
+	</bean>
+
+	<bean id="batchHisenseStockConverter" parent="abstractDefaultImpexConverter">
+		<property name="header">
+			<value>#{defaultImpexProductHeader}
+				# Insert stock
+				UPDATE Product;code[unique=true];@stock[translator=de.hybris.platform.acceleratorservices.dataimport.batch.stock.StockTranslator,adapter=stockImportAdapter];$catalogVersion
+			</value>
+		</property>
+		<property name="impexRow">
+			<value>;{+0};{+1}:{2}</value>
+		</property>
+	</bean>
+	<bean id="stockImportAdapter" class="de.hybris.platform.acceleratorservices.dataimport.batch.stock.impl.DefaultStockImportAdapter" >
+		<property name="modelService" ref="modelService" />
+		<property name="warehouseService" ref="warehouseService" />
+		<property name="stockService" ref="stockService" />
+		<property name="warehouseCode" value="default"/>
+	</bean>
+	<bean id="batchStockHisenseIncrementalConverter" parent="abstractDefaultImpexConverter">
+		<property name="header">
+			<value>#{defaultImpexProductHeader}
+				# Insert stock
+				UPDATE Product;code[unique=true];@stock[translator=de.hybris.platform.acceleratorservices.dataimport.batch.stock.StockTranslator,adapter=stockIncrementalImportAdapter];$catalogVersion
+			</value>
+		</property>
+		<property name="impexRow">
+			<value>;{+0};{+1}:{2}</value>
+		</property>
+	</bean>
+	<bean id="stockIncrementalImportAdapter" class="de.hybris.platform.acceleratorservices.dataimport.batch.stock.impl.IncrementalStockImportAdapter" >
+		<property name="modelService" ref="modelService" />
+		<property name="warehouseService" ref="warehouseService" />
+		<property name="stockService" ref="stockService" />
+		<property name="warehouseCode" value="default"/>
+	</bean>
+	<bean id="batchHisenseMerchandiseConverter" parent="abstractDefaultImpexConverter">
+		<property name="header">
+			<value>#{defaultImpexProductHeader}
+				# Insert references
+				INSERT_UPDATE ProductReference;source(code,$catalogVersion)[unique=true];referenceType(code);target(code,$catalogVersion)[unique=true];active[default=true];preselected[default=false]
+			</value>
+		</property>
+		<property name="impexRow">
+			<value>;{+0};{+1};{+2}</value>
+		</property>
+	</bean>
+
+	<bean id="batchHisenseCustomerConverter" parent="abstractDefaultImpexConverter">
+		<property name="header">
+			<value>#{defaultImpexProductHeader}
+				# Insert Customer
+				$setName=name[cellDecorator=de.hybris.platform.acceleratorservices.dataimport.batch.decorator.CustomerNameDecorator]
+				INSERT Customer;uid[unique=true];$setName;title(code)
+			</value>
+		</property>
+		<property name="impexRow">
+			<value>;{+0};{1} {2};{3};</value>
+		</property>
+	</bean>
+
+	<!--	<bean id="batchStyleVariantConverterMapping"-->
+	<!--		  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"-->
+	<!--		  p:mapping="variant"-->
+	<!--		  p:converter-ref="batchStyleVariantConverter"/>-->
+
+
+	<!--	<bean id="batchStyleVariantConverter" parent="abstractDefaultImpexConverter">-->
+<!--		<property name="header">-->
+<!--			<value>#{defaultImpexProductHeader}-->
+<!--				$baseProduct=baseProduct(code,$catalogVersion)-->
+<!--				# Insert style variant specific data-->
+<!--				INSERT_UPDATE ApparelStyleVariantProduct;$baseProduct;code[unique=true];variantType(code);style[lang=$lang];sequenceId[translator=de.hybris.platform.acceleratorservices.dataimport.batch.converter.SequenceIdTranslator];$catalogVersion;$approved-->
+<!--			</value>-->
+<!--		</property>-->
+<!--		<property name="impexRow">-->
+<!--			<value>;{+0};{+1};{2};{3};{S}</value>-->
+<!--		</property>-->
+<!--		<property name="rowFilter">-->
+<!--			<bean class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexRowFilter">-->
+<!--				<property name="expression" value="row[2] == 'ApparelStyleVariantProduct' || (!row[2] &amp;&amp; !row[4])"/>-->
+<!--			</bean>-->
+<!--		</property>-->
+<!--	</bean>-->
 </beans>

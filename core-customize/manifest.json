@@ -139,6 +139,12 @@
     },
     {
       "name": "backgroundProcessing",
+      "properties": [
+        {
+          "key": "cluster.node.groups",
+          "value": "integration,yHotfolderCandidate,backgroundProcessing"
+        }
+      ],
       "webapps": [
         {
           "name": "hac",

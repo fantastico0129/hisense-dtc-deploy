@@ -58,7 +58,7 @@ INSERT_UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[
 ;$solrIndexedType; manufacturerAID        ;string ;            ;    ;    ;    ;    ;    ;                                       ;              ;    ;   ;    ;   ;    ;  ;    ;   ;  ;
 ;$solrIndexedType; ean                    ;string ;            ;    ;    ;    ;true;true;                                       ;              ;    ;   ;true;100;    ;  ;true;POSTFIX;50;3
 ;$solrIndexedType; priceValue             ;double ;            ;true;    ;    ;    ;    ;productPriceValueProvider              ;              ;    ;   ;    ;   ;    ;  ;    ;   ;  ;
-;$solrIndexedType; keywords               ;text   ;            ;    ;true;    ;true;true;productKeywordsValueProvider           ;              ;true;40 ;true;20 ;true;10;    ;   ;  ;
+;$solrIndexedType;   keywords               ;text   ;            ;    ;true;    ;true;true;productKeywordsValueProvider           ;              ;true;40 ;true;20 ;true;10;    ;   ;  ;
 ;$solrIndexedType; reviewAvgRating        ;double ;            ;    ;true;    ;    ;    ;productReviewAverageRatingValueProvider;              ;    ;   ;    ;   ;    ;  ;    ;   ;  ;
 ;$solrIndexedType; img-515Wx515H          ;string ;            ;    ;    ;    ;    ;    ;image515ValueProvider                  ;              ;    ;   ;    ;   ;    ;  ;    ;   ;  ;
 ;$solrIndexedType; img-300Wx300H          ;string ;            ;    ;    ;    ;    ;    ;image300ValueProvider                  ;              ;    ;   ;    ;   ;    ;  ;    ;   ;  ;
